@@ -1,9 +1,8 @@
 #include "link_list.h"
 
-node* create_link_list(int n)
+void create_link_list(Plist manager,int n)
 {
 	int i;
-	node* head = NULL;
 	node* temp;
 	for (i = 0; i < n; i++)
 	{
@@ -11,68 +10,64 @@ node* create_link_list(int n)
 			free(temp);
 		printf("%d.Node value:", i + 1);
 		scanf("%d", &temp->num);
-		temp->next = head;
-		head = temp;
+		temp->next = manager->head;
+		manager->head = temp;
 	}
-	head->length = n;
-	return head;
-
+	manager->size = n;
 }
 
-void add_to_list(node* head)
+void add_to_list(Plist manager)
 {
 	int flag = 1;
-	node* temp, * prev, * after;
-	prev = head;
-	after = head->next;
+	node* temp;
+	manager->prev = manager->head;
+	manager->after = manager->head->next;
 	if (!(temp = (node*)malloc(sizeof(node))))
 		free(temp);
 	printf("\nEnter value for node to add:");
 	scanf("%d", &temp->num);
 	//add to start of list
-	//NOT WORKING, DOESN'T UPDATE HEAD AFTER FUNCTION ENDS
-	if (prev->num < temp->num)
+	if (manager->head->num < temp->num)
 	{
-		temp->next = prev;
-		head = temp;
+		temp->next = manager->head;
+		manager->head = temp;
 		flag = 0;
 	}
 	//add to middle of list
-	while (prev->next != NULL && flag)
+	while (manager->prev->next != NULL && flag)
 	{
-		if (temp->num < prev->num && temp->num > after->num)
+		if (temp->num < manager->prev->num && temp->num >manager->after->num)
 		{
-			temp->next = after;
-			prev->next = temp;
+			temp->next = manager->after;
+			manager->prev->next = temp;
 			flag = 0;//we have added the node exit the loop
 		}
-		prev = prev->next;
-		after = after->next;
+		manager->prev = manager->prev->next;
+		manager->after = manager->after->next;
 	}
 	//add to end of list
 	if (flag)//if we still have not added a node
 	{
-		prev->next = temp;
+		manager->prev->next = temp;
 		flag = 0;
 	}
-	head->length++;
+	manager->size++;//THIS DOESNT WORK
 }
-void delete_and_free(node* head)
+void delete_and_free(Plist manager)
 {
 
 }
-void print_link_list(node* head)
+void print_link_list(Plist manager)
 {
 	int i;
-	node* p;
-	p = head;
-	for (i = 0; i < head->length; i++)
+	manager->prev = manager->head;
+	for (i = 0; i < manager->size; i++)
 	{
-		if (i != head->length - 1)
-			printf("%d---->", p->num);
+		if (i != manager->size - 1)
+			printf("%d---->", manager->prev->num);
 		else
-			printf("%d", p->num);
-		p = p->next;
+			printf("%d", manager->prev->num);
+		manager->prev = manager->prev->next;
 
 	}
 }

@@ -2,12 +2,14 @@
 
 void main()
 {
-	node* head = NULL;
+	list_manage manager;
 	int n;
+	manager.head = NULL;
+	manager.tail = NULL;
 	printf("Enter amount of nodes in linked list:");
 	scanf("%d", &n);
-	head=create_link_list(n);
-	print_link_list(head);
-	add_to_list(head);
-	print_link_list(head);
+	create_link_list(&manager,n);
+	print_link_list(&manager);
+	add_to_list(&manager);
+	print_link_list(&manager);
 }

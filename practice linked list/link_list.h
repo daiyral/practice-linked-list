@@ -12,13 +12,21 @@ Header file for link list funcs to create,remove and add items.
 typedef struct node
 {
 	int num;
-	int length;
 	struct node* next;
 }node;
-node* create_link_list(int n);//create link list
-void add_to_list(node* head);//add 1 node to list
-void print_link_list(node* head);//print list
-void delete_and_free(node* head);
-void upper_list(node* head);//didnt do yet 
+
+typedef struct list_manage
+{
+	node* head;
+	node* tail;
+	node* prev;
+	node* after;
+	int size;
+}list_manage,*Plist;
+void create_link_list(Plist manager,int n);//create link list
+void add_to_list(Plist manager);//add 1 node to list
+void print_link_list(Plist manager);//print list
+void delete_and_free(Plist manager);
+void upper_list(Plist manager);//didnt do yet 
 
 #endif
