@@ -1,5 +1,7 @@
 #include "link_list.h"
-
+/*
+create a link list size of n
+*/
 void create_link_list(Plist manager,int n)
 {
 	int i;
@@ -15,7 +17,9 @@ void create_link_list(Plist manager,int n)
 	}
 	manager->size = n;
 }
-
+/*
+add 1 item to link list(only works on a rising list no dups)
+*/
 void add_to_list(Plist manager)
 {
 	int flag = 1;
@@ -51,12 +55,24 @@ void add_to_list(Plist manager)
 		manager->prev->next = temp;
 		flag = 0;
 	}
-	manager->size++;//THIS DOESNT WORK
+	manager->size++;
 }
+/*
+free memory
+*/
 void delete_and_free(Plist manager)
 {
-
+	node *temp;
+	while (manager->head != NULL)
+	{
+		temp = manager->head;
+		manager->head = manager->head->next;
+		free(temp);
+	}
 }
+/*
+print the list 
+*/
 void print_link_list(Plist manager)
 {
 	int i;
@@ -70,5 +86,30 @@ void print_link_list(Plist manager)
 		manager->prev = manager->prev->next;
 
 	}
+	printf("\n");
 }
-
+/*
+deletes any node in the list that breaks the rising sequence
+DOESNT EXACTLY WORK IF YOU NEED TO DELETE MORE THAN ONCE FIX LATER
+*/
+void upper_list(Plist manager)
+{
+	int cnt = 0;
+	node* temp;
+	manager->prev = manager->head;//set prev to the first item in link list
+	manager->after = manager->head->next;//set after to be 2 item in link list
+	while (manager->after != NULL)
+	{
+		if (manager->after->num < manager->prev->num)
+		{
+			temp = manager->after;
+			manager->after = manager->after->next;
+			manager->prev->next = manager->after;
+			free(temp);
+			cnt++;//count how many items have been deleted
+		}
+		manager->prev = manager->prev->next;
+		manager->after = manager->after->next;
+	}
+	manager->size = manager->size - cnt;
+}
