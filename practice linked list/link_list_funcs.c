@@ -88,31 +88,6 @@ void print_link_list(Plist manager)
 	}
 	printf("\n");
 }
-/*
-deletes any node in the list that breaks the rising sequence
-DOESNT EXACTLY WORK IF YOU NEED TO DELETE MORE THAN ONCE FIX LATER
-*/
-/*void upper_list(Plist manager)
-{
-	int cnt = 0;
-	node* temp;
-	manager->prev = manager->head;//set prev to the first item in link list
-	manager->after = manager->head->next;//set after to be 2 item in link list
-	while (manager->after != NULL)
-	{
-		if (manager->after->num < manager->prev->num)
-		{
-			temp = manager->after;
-			manager->after = manager->after->next;
-			manager->prev->next = manager->after;
-			free(temp);
-			cnt++;//count how many items have been deleted
-		}
-		manager->prev = manager->prev->next;
-		manager->after = manager->after->next;
-	}
-	manager->size = manager->size - cnt;
-}*/
 
 
 void build_list_tail(Plist manager,int n)
@@ -134,4 +109,5 @@ void build_list_tail(Plist manager,int n)
 		manager->tail = temp;
 
 	}
+	manager->size = n;
 }

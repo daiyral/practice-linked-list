@@ -29,5 +29,5 @@ void add_to_list(Plist manager);//add 1 node to list
 void print_link_list(Plist manager);//print list
 void delete_and_free(Plist manager);
 void upper_list(Plist manager);//didnt do yet 
-
+void switch_list(Plist manager);
 #endif
