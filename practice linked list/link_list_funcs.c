@@ -92,7 +92,7 @@ void print_link_list(Plist manager)
 deletes any node in the list that breaks the rising sequence
 DOESNT EXACTLY WORK IF YOU NEED TO DELETE MORE THAN ONCE FIX LATER
 */
-void upper_list(Plist manager)
+/*void upper_list(Plist manager)
 {
 	int cnt = 0;
 	node* temp;
@@ -112,4 +112,26 @@ void upper_list(Plist manager)
 		manager->after = manager->after->next;
 	}
 	manager->size = manager->size - cnt;
+}*/
+
+
+void build_list_tail(Plist manager,int n)
+{
+	node* temp;
+	int i;
+
+	for (i = 0; i < n; i++)
+	{
+		if (!(temp = (node*)malloc(sizeof(node))))
+			free(temp);
+		printf("%d.Node value:", i + 1);
+		scanf("%d", &temp->num);
+		temp->next = NULL;
+		if (manager->head == NULL)
+			manager->head = temp;
+		else
+			manager->tail->next = temp;
+		manager->tail = temp;
+
+	}
 }

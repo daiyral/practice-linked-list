@@ -10,9 +10,13 @@ void main()
 	scanf("%d", &n);
 	create_link_list(&manager,n);
 	print_link_list(&manager);
-	//add_to_list(&manager);
-	//print_link_list(&manager);
-	upper_list(&manager);
+	add_to_list(&manager);
+	print_link_list(&manager);
+	delete_and_free(&manager);
+	//upper_list(&manager);
+	build_list_tail(&manager, n);
+	print_link_list(&manager);
+	add_to_list(&manager);
 	print_link_list(&manager);
 	delete_and_free(&manager);
 }
